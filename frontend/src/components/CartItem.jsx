@@ -3,14 +3,14 @@ import { updateQty, removeItem } from "../features/cart/cartSlice";
 
 const CartItem = ({ item }) => {
     const dispatch = useDispatch();
-    
+
     const handleQtyChange = (e) => {
         const qty = Number(e.target.value);
         if (!Number.isNaN(qty) && qty > 0) {
             dispatch(updateQty({ id: item.productId, quantity: qty }));
         }
     };
-    
+
     return (
         <div>
             <span>Product: {item.productId}</span>

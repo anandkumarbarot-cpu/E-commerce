@@ -22,6 +22,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("combined", { stream: { write: message => logger.info(message.trim()) } }));
 app.use(apiLimiter);
+app.set('query parser', 'extended');
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);

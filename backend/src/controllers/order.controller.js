@@ -1,11 +1,33 @@
 import Order from "../models/Order.js";
+import Product from "../models/Product.js";
 
 export const newOrder = async (req, res, next) => {
     try {
+        const { items, totalAmount } = req.body;
+        const enrichedItems = [];
+        for (const item of items) {
+            const product = await Product.findById(item.productId);
+            if (!product) {
+                return res.status(404).json({ message: `Product not found: ${item.productId}` });
+            }
+            if (product.stock < item.quantity) {
+                return res.status(400).json({ message: `Insufficient stock for product: ${product.name}` });
+            }
+            product.stock -= item.quantity;
+            await product.save();
+            enrichedItems.push({
+                productId: item.productId,
+                quantity: item.quantity,
+                name: product.name,
+                price: product.price,
+                image: product.image
+            });
+        }
+
         const order = await Order.create({
             userId: req.user.id,
-            items: req.body.items,
-            totalAmount: req.body.totalAmount
+            items: enrichedItems,
+            totalAmount
         });
         res.status(201).json(order);
     } catch (err) {

@@ -16,7 +16,6 @@ export const validateCartItem = [
 ];
 
 export const validateOrder = [
-    body('shippingInfo').exists().withMessage('Shipping info is required'),
-    body('orderItems').isArray().withMessage('Order items must be an array'),
+    body('items').isArray().withMessage('Order items must be an array'),
     validate
 ];

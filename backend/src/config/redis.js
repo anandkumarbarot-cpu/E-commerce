@@ -6,10 +6,10 @@ const redisClient = createClient({
 });
 
 redisClient.on('error', (err) => {
-    
+
     if (err.code === 'ECONNREFUSED') {
-        
-        
+
+
     } else {
         logger.error('Redis Client Error', err);
     }
@@ -22,7 +22,7 @@ redisClient.on('connect', () => logger.info('Redis Client Connected'));
     try {
         await redisClient.connect();
     } catch (err) {
-        
+
         logger.warn('Initial Redis Connection Failed - Caching disabled');
     }
 })();

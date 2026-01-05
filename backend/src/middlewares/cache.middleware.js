@@ -15,11 +15,11 @@ export const cacheProducts = async (req, res, next) => {
             return res.json(JSON.parse(cachedData));
         }
 
-        
+
         const originalJson = res.json;
         res.json = (body) => {
             if (body.success) {
-                redisClient.setEx(key, 300, JSON.stringify(body)) 
+                redisClient.setEx(key, 300, JSON.stringify(body))
                     .catch(err => logger.error('Redis Cache Set Error', err));
             }
             return originalJson.call(res, body);

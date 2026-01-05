@@ -1,13 +1,10 @@
 import React from 'react';
 
 const categories = [
-    "Laptop",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
-    "SmartPhones",
+    "Electronics",
+    "Sports",
+    "Home",
+    "Fashion",
 ];
 
 const ProductFilters = ({ price, setPrice, category, setCategory, ratings, setRatings }) => {

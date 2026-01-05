@@ -4,7 +4,7 @@ import CartSummary from "../components/CartSummary";
 
 const CartPage = () => {
     const items = useSelector(state => state.cart.items);
-    
+
     return (
         <div>
             <h1>Your Cart</h1>
@@ -13,9 +13,9 @@ const CartPage = () => {
             ) : (
                 <>
                     {items.map(item => (
-                        <CartItem key={item.id} item={item} />
+                        <CartItem key={item.productId} item={item} />
                     ))}
-                    <CartSummary items={items} />
+                    <CartSummary />
                 </>
             )}
         </div>

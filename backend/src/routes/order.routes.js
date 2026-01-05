@@ -4,7 +4,7 @@ import { validateOrder } from "../middlewares/validation.middleware.js";
 import { protect } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
-router.post("/new", validateOrder, newOrder);
+router.post("/", protect, validateOrder, newOrder);
 router.get("/", protect, myOrders);
 
 

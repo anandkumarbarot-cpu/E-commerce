@@ -6,7 +6,6 @@ import SearchBar from "../components/SearchBar";
 import Pagination from "../components/Pagination";
 
 import { FixedSizeGrid as Grid } from 'react-window';
-import { AutoSizer } from 'react-virtualized-auto-sizer';
 
 import ProductFilters from "../components/ProductFilters";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -66,36 +65,38 @@ const ProductPage = () => {
                     ) : (
                         <>
                             <div style={{ height: "600px", width: "100%" }}>
-                                <AutoSizer>
-                                    {({ height, width }) => {
-                                        const columnCount = 3;
-                                        const columnWidth = width / columnCount;
-                                        const rowHeight = 450;
-                                        const rowCount = Math.ceil(products.length / columnCount);
+                                {(() => {
+                                    if (!products || products.length === 0) {
+                                        return <div>No products to display</div>;
+                                    }
 
-                                        return (
-                                            <Grid
-                                                columnCount={columnCount}
-                                                columnWidth={columnWidth}
-                                                height={height}
-                                                rowCount={rowCount}
-                                                rowHeight={rowHeight}
-                                                width={width}
-                                                itemData={{ products, columnCount }}
-                                            >
-                                                {({ columnIndex, rowIndex, style, data }) => {
-                                                    const product = data.products[rowIndex * data.columnCount + columnIndex];
-                                                    if (!product) return null;
-                                                    return (
-                                                        <div style={{ ...style, padding: '10px' }}>
-                                                            <ProductCard product={product} />
-                                                        </div>
-                                                    );
-                                                }}
-                                            </Grid>
-                                        );
-                                    }}
-                                </AutoSizer>
+                                    const columnCount = 4;
+                                    const columnWidth = Math.floor((typeof window !== 'undefined' ? window.innerWidth : 1200) * 0.95 / columnCount);
+                                    const rowHeight = 400;
+                                    const rowCount = Math.ceil(products.length / columnCount);
+
+                                    return (
+                                        <Grid
+                                            columnCount={columnCount}
+                                            columnWidth={columnWidth}
+                                            height={600}
+                                            rowCount={rowCount}
+                                            rowHeight={rowHeight}
+                                            width={typeof window !== 'undefined' ? window.innerWidth * 0.95 : 1200}
+                                            itemData={{ products, columnCount }}
+                                        >
+                                            {({ columnIndex, rowIndex, style, data }) => {
+                                                const product = data.products[rowIndex * data.columnCount + columnIndex];
+                                                if (!product) return null;
+                                                return (
+                                                    <div style={{ ...style, padding: '10px' }}>
+                                                        <ProductCard product={product} />
+                                                    </div>
+                                                );
+                                            }}
+                                        </Grid>
+                                    );
+                                })()}
                             </div>
 
                             {resultPerPage < productsCount && (
