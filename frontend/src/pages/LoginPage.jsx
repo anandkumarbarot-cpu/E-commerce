@@ -54,7 +54,7 @@ export default function LoginPage() {
             ...prev,
             [name]: value
         }));
-        // Clear error when user starts typing
+        
         if (formErrors[name]) {
             setFormErrors(prev => ({
                 ...prev,

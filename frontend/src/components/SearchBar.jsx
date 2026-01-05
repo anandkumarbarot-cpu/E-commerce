@@ -5,10 +5,10 @@ const SearchBar = ({ onSearch }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-    // Effect to trigger search when debounced value changes
+    
     useEffect(() => {
-        // Only search if term exists or if it was cleared (to reset)
-        // We can pass the term directly to onSearch
+        
+        
         onSearch(debouncedSearchTerm);
     }, [debouncedSearchTerm, onSearch]);
 

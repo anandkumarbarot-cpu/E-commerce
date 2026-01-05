@@ -12,7 +12,7 @@ export const placeOrder = createAsyncThunk(
     async (orderData, { dispatch }) => {
         try {
             const response = await api.post('/orders', orderData);
-            // Clear the cart after successful order placement
+            
             dispatch({ type: 'cart/clearCart' });
             return response.data;
         } catch (error) {

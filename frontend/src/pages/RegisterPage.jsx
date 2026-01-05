@@ -63,7 +63,7 @@ export default function RegisterPage() {
             ...prev,
             [name]: value
         }));
-        // Clear error when user starts typing
+        
         if (formErrors[name]) {
             setFormErrors(prev => ({
                 ...prev,

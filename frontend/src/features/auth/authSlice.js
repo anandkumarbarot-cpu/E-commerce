@@ -14,7 +14,7 @@ export const registerUser = createAsyncThunk(
     "auth/register",
     async (data, { dispatch }) => {
         const res = await api.post("/auth/register", data);
-        // Automatically log in after registration
+        
         const loginRes = await api.post("/auth/login", {
             email: data.email,
             password: data.password
@@ -29,7 +29,7 @@ export const getUserProfile = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const { data } = await api.get("/auth/me");
-            return data.user || data; // Handle both { user } and direct user object responses
+            return data.user || data; 
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch profile');
         }
@@ -52,7 +52,7 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        // Login
+        
         builder.addCase(loginUser.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -68,7 +68,7 @@ const authSlice = createSlice({
             state.error = action.error.message;
         });
 
-        // Register
+        
         builder.addCase(registerUser.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -84,7 +84,7 @@ const authSlice = createSlice({
             state.error = action.error.message;
         });
 
-        // Get User Profile
+        
         builder.addCase(getUserProfile.pending, (state) => {
             state.loading = true;
             state.error = null;

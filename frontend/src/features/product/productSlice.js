@@ -44,7 +44,7 @@ const productSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Fetch Products
+      
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -60,7 +60,7 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // Fetch Single Product
+      
       .addCase(fetchProduct.pending, (state) => {
         state.loading = true;
         state.error = null;

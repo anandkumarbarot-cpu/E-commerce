@@ -5,12 +5,12 @@ export const updateCart = async (req, res, next) => {
         const { items } = req.body;
         const userId = req.user.id;
 
-        // Use findOneAndUpdate with upsert to handle both creation and update atomically
-        // This is a simplified approach; for true item-level atomicity, we might need more complex logic
-        // but this is better than find -> modify in memory -> save
+        
+        
+        
         const cart = await Cart.findOneAndUpdate(
             { userId },
-            { $set: { items } }, // Replacing items list entirely as per original logic, but atomically
+            { $set: { items } }, 
             { new: true, upsert: true, setDefaultsOnInsert: true }
         );
 
